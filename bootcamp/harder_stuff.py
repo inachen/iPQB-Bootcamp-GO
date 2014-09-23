@@ -32,12 +32,27 @@ def calculate_enrichment(gene_data, go_to_genes, n=100):
     top_genes=sorted_genes[:n]
     top_gene_names= list(zip(*top_genes)[0])
 
-    score_list = dict((k,0) for k in test_goid.keys())
+    # [+ top + goid, + top - goid, - top + goid, - top - goid ]
+    score_list = dict((k,[0, 0, 0, 0]) for k in go_to_genes.keys())
     # print score_list
 
+    # calculate hits
     for g in top_gene_names:
-        if g in score_list:
-            score_list[g] 
+        print g
+        for goid in score_list:
+            if g in go_to_genes[goid]:
+                score_list[goid][0] += 1
+            else:
+                score_list[goid][1] += 1
+
+    # calculate all terms
+    for goid in score_list:
+        score_list[goid][2] = len(go_to_genes[goid]) - score_list[goid][0]
+        score_list[goid][3] = n - score_list[goid][1]
+
+    # c
+
+    print score_list
 
 
 
