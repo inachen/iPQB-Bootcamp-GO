@@ -60,7 +60,16 @@ def gene_info(gene):
 # map from a systematic name to a list of GOIDs that the gene is associated with
 # e.g. 'YGR188C' -> ['GO:0005694', 'GO:0000775', 'GO:0000778', ... ]
 def gene_to_go(gene):
-    pass
+	with open(GO_MEMBERSHIP) as GO_MEM:
+		gofiles = []
+		for go in GO_MEM:
+			gofiles.append(go)
+		GOIDs = []
+		for i in range(len(gofiles)):
+			test = gofiles[i].split()
+			if test[0] == gene:
+				GOIDs.append(test[1])
+		return GOIDs
 
 
 # map from one of the GO aspects (P, F, and C, for Process, Function, Component),
@@ -80,4 +89,13 @@ def go_info(goid):
 # to a list of genes (systematic names)
 # e.g. 'GO:0005737' -> ['YAL001C', 'YAL002W', 'YAL003W', ... ]
 def go_to_gene(goid):
-    pass
+	with open(GO_MEMBERSHIP) as GO_MEM:
+		gofiles = []
+		for go in GO_MEM:
+			gofiles.append(go)
+		genes = []
+		for i in range(len(gofiles)):
+			test = gofiles[i].split()
+			if test[1] == goid:
+				genes.append(test[0])
+		return genes
