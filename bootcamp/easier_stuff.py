@@ -65,13 +65,22 @@ def experiment():
 # map from a gene's systematic name to its standard name
 # e.g. gene_name('YGR188C') returns 'BUB1'
 def gene_name(gene):
-    pass
+	with open(GENE_INFO) as gene_info:
+		for geneline in gene_info:
+			splitline = geneline.split()
+			if splitline[0] == gene:
+				return splitline[1].strip()
 
 
 # map from a systematic name to some info about the gene (whatever you want),
 # e.g  'YGR188C' -> 'Protein kinase involved in the cell cycle checkpoint into anaphase'
 def gene_info(gene):
-    pass
+	with open(GENE_INFO) as gene_info:
+		for geneline in gene_info:
+			splitgene = geneline.split('\t')
+			if splitgene[0] == gene:
+				infogene = splitgene[2]
+				return infogene
 
 
 # map from a systematic name to a list of GOIDs that the gene is associated with
@@ -93,13 +102,25 @@ def gene_to_go(gene):
 # to a list of all the GOIDs in that aspect
 # e.g. 'C' -> ['GO:0005737', 'GO:0005761', 'GO:0005763', ... ]
 def go_aspect(aspect):
-    pass
+	goids = []
+	with open(GO_INFO) as go_info:
+		for goline in go_info:
+			splitgo = goline.split('\t')
+			if splitgo[2] == aspect:
+				goids.append(splitgo[0])
+		return goids
 
 
 # map from a GOID (e.g. GO:0005737) to a *tuple* of the term and term definition
 # e.g. 'GO:0005737' -> ('cytoplasm', 'All of the contents of a cell... (etc)'
 def go_info(goid):
-    pass
+	with open(GO_INFO) as go_info:
+		for goline in go_info:
+			splitgo = goline.split('\t')
+			if splitgo[0] == goid:
+				termtuple = (splitgo[1].strip(), splitgo[3].strip())
+				break
+		return termtuple
 
 
 # the reverse of the gene_to_go function: map from a GOID
