@@ -42,7 +42,24 @@ EXPERIMENT_FILE = os.path.join(app.root_path, 'data', 'experiment_data.txt')
 #       [('YAL001C', -0.58), ('YAL002W', 0.23), ('YAL003W', -0.25), ... ],
 #        ... ]
 def experiment():
-    pass
+    f=open(EXPERIMENT_FILE,'rU')
+	fLineList=f.readlines()
+	f.close()
+	i=0
+	id=id+2
+	dict={}
+	for lines in fLineList:
+		if i==0:
+			i+=1
+			continue
+		
+		match=re.search(r'(Y\w+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+', lines)
+		print 
+		if match:
+			dict[match.group(1)]=match.group(id)
+	for k,v in dict.items():
+		print k,v
+	return 
 
 
 # map from a gene's systematic name to its standard name
