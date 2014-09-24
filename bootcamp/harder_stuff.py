@@ -39,10 +39,6 @@ def calculate_enrichment(gene_data, go_to_genes, n=100):
     bot_genes=bot_sorted_genes[:n]
     bot_gene_names= list(zip(*bot_genes)[0])
 
-    # # [+ top + goid, + top - goid, - top + goid, - top - goid ]
-    # top_score_list = dict((k,[0, 0, 0, 0]) for k in go_to_genes.keys())
-    # print top_score_list
-
     tot_genes = len(gene_data)
 
     # [+ top + goid (k), total genes (M), top genes (n), goid genes (N), score ]
@@ -69,13 +65,13 @@ def calculate_enrichment(gene_data, go_to_genes, n=100):
     for goid in top_score_list:
         top_score_list[goid][4] = hypergeom.sf(top_score_list[goid][0]-1, top_score_list[goid][1], top_score_list[goid][2], top_score_list[goid][3])
         if top_score_list[goid][4] < 0.05:
-            positive_enrichment_scores.append(goid)
+            positive_enrichment_scores.append((goid, top_score_list[goid][4]))
         bot_score_list[goid][4] = hypergeom.sf(bot_score_list[goid][0]-1, bot_score_list[goid][1], bot_score_list[goid][2], bot_score_list[goid][3])
         if bot_score_list[goid][4] < 0.05:
-            negative_enrichment_scores.append(goid)
+            negative_enrichment_scores.append((goid, bot_score_list[goid][4]))
 
     print top_score_list
-    print bot_score_list
+#     print bot_score_list
 
     return positive_enrichment_scores,negative_enrichment_scores
 
