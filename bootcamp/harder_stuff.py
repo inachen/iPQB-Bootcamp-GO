@@ -70,8 +70,6 @@ def calculate_enrichment(gene_data, go_to_genes, n=100):
         if bot_score_list[goid][4] < 0.05:
             negative_enrichment_scores.append((goid, bot_score_list[goid][4]))
 
-    print top_score_list
-#     print bot_score_list
 
     return positive_enrichment_scores,negative_enrichment_scores
 
@@ -98,5 +96,4 @@ def plot_experiment(gene_data):
 
     return mpld3_dict
 
-calculate_enrichment(test_genes, test_goid, n=3)
 
