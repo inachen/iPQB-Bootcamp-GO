@@ -14,7 +14,8 @@
 # (don't delete this but don't worry about it either)
 import os # a built-in module, for dealing with filenames
 from . import app # this is part of the website guts
-import re 
+
+
 
 # These are all the files you have to work with. Go open them in a text  editor so you can
 # get a feel for what they look like, because you need to parse each one to turn on a
@@ -40,14 +41,36 @@ EXPERIMENT_FILE = os.path.join(app.root_path, 'data', 'experiment_data.txt')
 # e.g. [[('YAL001C', -0.06), ('YAL002W', -0.3), ('YAL003W', -0.07), ... ],
 #       [('YAL001C', -0.58), ('YAL002W', 0.23), ('YAL003W', -0.25), ... ],
 #        ... ]
-def experiment(id):
-    f=open(EXPERIMENT_FILE,'rU')
-    dict={}
-    for lines in f.readlines():
-    	match=re.search(r'(Y\w+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+', lines)
-    	if match: dict[match.group(1)]=match.group(id+2)
-    return dict.items()
-
+def experiment():
+	with open(EXPERIMENT_FILE) as experimentfile:
+		initial_size = 0
+		next(experimentfile)
+		for geneline in experimentfile:
+			elements = geneline.split('\t')
+			if initial_size == 0:
+				expt_list = [list() for i in range(len(elements))]
+				initial_size = len(elements)-1
+			else:
+				for i in range(0, initial_size):
+					expt_list[i].append((elements[0], float(elements[i+1])))
+		return expt_list
+# 	f=open(EXPERIMENT_FILE,'rU')
+# 	fLineList=f.readlines()
+# 	f.close()
+# 	i=0
+# 	dict={}
+# 	for lines in fLineList:
+# 		if i==0:
+# 			i+=1
+# 			continue
+# 		
+# 		match=re.search(r'(Y\w+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+', lines)
+# 		print 
+# 		if match:
+# 			dict[match.group(1)]=match.group(id)
+# 	for k,v in dict.items():
+# 		print k,v
+# 	return 
 
 
 # map from a gene's systematic name to its standard name
@@ -126,7 +149,4 @@ def go_to_gene(goid):
 				genes.append(test[0])
 		return genes
 
-print gene_name('YGR188C') == 'BUB1'
-print gene_info('YGR188C')
-print gene_to_go('YGR188C')
-
+experiment()
