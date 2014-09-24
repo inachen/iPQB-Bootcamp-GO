@@ -13,10 +13,11 @@ import numpy as np
 
 @app.route('/')
 def homepage():
+    print hi
     exp_data = es.experiment()
 
     if exp_data is not None:
-        exps = np.random.choice(list(exp_data), size=10, replace=False)
+        exps = np.random.choice(list(range(len(exp_data))), size=10, replace=False)
     else:
         exps = []
 

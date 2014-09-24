@@ -42,7 +42,7 @@ EXPERIMENT_FILE = os.path.join(app.root_path, 'data', 'experiment_data.txt')
 #       [('YAL001C', -0.58), ('YAL002W', 0.23), ('YAL003W', -0.25), ... ],
 #        ... ]
 def experiment():
-    f=open(EXPERIMENT_FILE,'rU')
+	f=open(EXPERIMENT_FILE,'rU')
 	fLineList=f.readlines()
 	f.close()
 	i=0
