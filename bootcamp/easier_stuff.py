@@ -14,7 +14,12 @@
 # (don't delete this but don't worry about it either)
 import os # a built-in module, for dealing with filenames
 from . import app # this is part of the website guts
+<<<<<<< HEAD
 import re
+=======
+import re 
+
+>>>>>>> FETCH_HEAD
 
 
 # These are all the files you have to work with. Go open them in a text  editor so you can
@@ -41,6 +46,7 @@ EXPERIMENT_FILE = os.path.join(app.root_path, 'data', 'experiment_data.txt')
 # e.g. [[('YAL001C', -0.06), ('YAL002W', -0.3), ('YAL003W', -0.07), ... ],
 #       [('YAL001C', -0.58), ('YAL002W', 0.23), ('YAL003W', -0.25), ... ],
 #        ... ]
+<<<<<<< HEAD
 
 def experiment(id):
     f=open(EXPERIMENT_FILE,'rU')
@@ -49,6 +55,27 @@ def experiment(id):
     	match=re.search(r'(Y\w+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+', lines)
     	if match: dict[match.group(1)]=match.group(id+2)
     return dict.items()
+=======
+def experiment():
+	f=open(EXPERIMENT_FILE,'rU')
+	fLineList=f.readlines()
+	f.close()
+	i=0
+	id=id+2
+	dict={}
+	for lines in fLineList:
+		if i==0:
+			i+=1
+			continue
+		
+		match=re.search(r'(Y\w+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+([\w\.-]+)\s+', lines)
+		print 
+		if match:
+			dict[match.group(1)]=match.group(id)
+	for k,v in dict.items():
+		print k,v
+	return 
+>>>>>>> FETCH_HEAD
 
 
 # map from a gene's systematic name to its standard name
@@ -129,4 +156,8 @@ def go_to_gene(goid):
 
 print gene_name('YGR188C') == 'BUB1'
 print gene_info('YGR188C')
+<<<<<<< HEAD
 print gene_to_go('YGR188C')
+=======
+print gene_to_go('YGR188C')
+>>>>>>> FETCH_HEAD
