@@ -137,3 +137,7 @@ def go_to_gene(goid):
 			if test[1] == goid:
 				genes.append(test[0])
 		return genes
+
+print gene_name('YGR188C') == 'BUB1'
+print gene_info('YGR188C')
+print gene_to_go('YGR188C')
